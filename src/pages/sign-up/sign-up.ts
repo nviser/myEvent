@@ -842,7 +842,7 @@ export class SignUpPage {
                 name: "Zimbabwe",
                 dial_code: "+263",
                 code: "ZW"
-            }, {
+            },/*  {
                 name: "land Islands",
                 dial_code: "",
                 code: "AX"
@@ -850,7 +850,7 @@ export class SignUpPage {
                 name: "Antarctica",
                 dial_code: null,
                 code: "AQ"
-            }, {
+            }, */ {
                 name: "Bolivia, Plurinational State of",
                 dial_code: "+591",
                 code: "BO"
