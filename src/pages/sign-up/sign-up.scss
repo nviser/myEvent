@@ -1,0 +1,151 @@
+page-sign-up {
+    
+        .list-ios > .item-block:last-child,
+        .list-ios > .item-wrapper:last-child .item-block,
+        .list-ios > .item-block:first-child,
+        .list-ios .item-block .item-inner,
+        .list-md > .item-block:last-child,
+        .list-md > .item-wrapper:last-child .item-block,
+        .list-md > .item-block:first-child,
+        .list-md .item-block .item-inner {
+            border: none;
+        }
+    
+        .item-ios,
+        .item-md {
+            background-color: transparent;
+        }
+    
+        .header {
+            margin-top: 20px;
+            text-align: center;
+    
+            ion-label {
+                font-size: 18px;
+            }
+    
+            img {
+                margin: 0 auto;
+            }
+    
+            .event-logo {
+                height: 100px;
+                display: block;
+            }
+        }
+    
+        .sign-up-form {
+            padding: 15px;
+            height: 60vh;
+            margin-top: 70px;
+    
+            .toolbar-title {
+                color: white;
+            }
+    
+           ion-input {
+               background-color: white;
+               &.tm-countrycode {
+                   width: 50px;
+                   input {
+                       width: 50px;
+                   }
+               }
+               &.tm-phone {
+                   width: 185px;
+                   input {
+                       width: 185px;
+                   }
+               }
+           }
+    
+           .form-input {
+               margin-top: 8px;
+               margin-bottom: 8px;
+    
+               ion-label {
+                   width: 120px;
+                   font-size: 14px;
+                   text-align: right;
+                   color: white;
+               }
+
+               ion-checkbox {
+                    text-align: left;
+               }
+           }
+
+           .check-checkbox {
+                .checkbox{
+                    width: 21px;
+                    align-items: right;
+                    margin-left: 80px;
+                    margin-right: 10px;
+                    .item-cover{
+                        width: 100px;
+                    }
+                }
+
+                ion-label{
+                    text-align: left;
+                    font-size: 14px;
+                }
+            }
+
+           .subtitle {
+               font-weight: 600;
+           }
+           
+           #submit-button {
+               height: 35px;
+               margin: 0 auto;
+               font-size: 18px;
+               display: block;
+               border-color: white;
+               padding: 10px;
+               color: white;
+           }
+
+           
+       }
+       
+    //    .footer {
+    //         height: 70px;
+    //         width: 100%;
+    //         position: absolute;
+    //         bottom: 0;
+    //         left: 0;
+    //         right: 0;
+    //         text-align: center;
+
+    //         button {
+    //             border-color: white;
+    //             color: white;
+    //         }
+    //     }
+       .footer {
+           position: fixed;
+           bottom: 15px;
+           text-align: center;
+           width: 100%;
+        //    color: white;
+           
+           
+            
+    
+            
+    
+           #submit-button {
+               height: 35px;
+               margin: 0 auto;
+               font-size: 18px;
+               display: block;
+               border-color: white;
+               padding: 10px;
+               //color:rgb(214, 253, 57); 
+
+           }
+       }
+       
+    }
+    
