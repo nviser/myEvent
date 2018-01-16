@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import * as App from '../../config/app';
 import { RegisterServiceProvider } from '../../providers/register-service/register-service';
@@ -17,6 +17,8 @@ import { Device } from '@ionic-native/device';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+
+declare var SMS:any;
 
 //@IonicPage()
 @Component({
@@ -38,13 +40,17 @@ export class SignUpPage {
     countrycode:any;
 
     constructor(private device: Device,public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public registerService: RegisterServiceProvider, public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController, public eventService: EventServiceProvider, public events:Events, public apiServiceProvider:ApiServiceProvider) {
+    public loadingCtrl: LoadingController, public eventService: EventServiceProvider, public events:Events, public apiServiceProvider:ApiServiceProvider, private platform:Platform) {
         this.form = {};
 
         this.setupEventLogo();
         this.setupExtraFields();
         this.getRecentUser();
         this.setupOldEventId();
+        // this.platform.ready().then((readySource) => {
+        //     smsStartWatch();
+        // });
+        //this.smsStartWatch();
 
         this.form.device_id = this.device.uuid;
         this.isAcceptPrivacy = false;
@@ -1310,5 +1316,37 @@ export class SignUpPage {
         console.log(this.countrycode + " countrycode");
         var myElement = document.getElementById("postal");
         myElement.click();
+    }
+
+    testSms() {
+        console.log('It\'s test sms fn gi');
+        //document.addEventListener('onSMSArrive', function(e){
+            	//var sms = e.data;
+            	
+            	// smsList.push( sms );
+            	// updateStatus('SMS arrived, count: ' + smsList.length );
+            	
+            	// // sms.address
+            	// // sms.body
+            	
+            	// var divdata = $('div#data');
+            	// divdata.html( divdata.html() + JSON.stringify( sms ) );
+            	
+            //});
+    }
+
+    smsStartWatch() {
+        alert('smsStartWatch running');
+        if(SMS) SMS.startWatch(() => {
+                alert('watching watching started');
+                document.addEventListener('onSMSArrive', (e:any) => {
+                    var sms = e;
+                    var sms1 = JSON.stringify(e);
+                    alert(sms);
+                    alert(sms1);
+                });
+        	},() => {
+        		alert('failed to start watching');
+        	});
     }
 }
