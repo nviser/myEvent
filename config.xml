@@ -107,4 +107,6 @@
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
     <plugin name="cordova-plugin-sms" spec="^1.0.5" />
+    <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
+    <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
 </widget>

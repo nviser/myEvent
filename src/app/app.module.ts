@@ -33,6 +33,7 @@ import { Http } from '@angular/http';
 import { ImgCacheModule } from 'ng-imgcache';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Device } from '@ionic-native/device';
+import { AndroidPermissions} from '@ionic-native/android-permissions';
 
 
 
@@ -99,7 +100,8 @@ export function createTranslateLoader(http: Http) {
     ProfileServiceProvider,
     AppRate,
     Keyboard,
-    Device
+    Device,
+    AndroidPermissions
   ]
 })
 export class AppModule {}

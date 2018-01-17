@@ -10,6 +10,8 @@ import { EventServiceProvider } from '../../providers/event-service/event-servic
 import { ApiServiceProvider } from '../../providers/api-service/api-service';
 import { Events } from 'ionic-angular';
 import { Device } from '@ionic-native/device';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the RegisterPage page.
@@ -38,9 +40,11 @@ export class SignUpPage {
     txtPrivacyPolicy: string;
     countries:any;
     countrycode:any;
+    smsCodeLength: number;
+    conf: any;
 
     constructor(private device: Device,public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public registerService: RegisterServiceProvider, public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController, public eventService: EventServiceProvider, public events:Events, public apiServiceProvider:ApiServiceProvider, private platform:Platform) {
+    public loadingCtrl: LoadingController, public eventService: EventServiceProvider, public events:Events, public apiServiceProvider:ApiServiceProvider, private platform:Platform, public androidPermissions: AndroidPermissions, private toastCtrl: ToastController) {
         this.form = {};
 
         this.setupEventLogo();
@@ -58,6 +62,7 @@ export class SignUpPage {
         this.form.gender = 'male';
         this.setupPrivacyPolicy();
         this.form.countrycode="+61";
+        this.smsCodeLength = 5;
         this.countries =
         [
             {
@@ -1032,12 +1037,21 @@ export class SignUpPage {
         ]
     }
 
+      ionViewWillEnter() {
+        this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_SMS).then(
+            success => console.log('Permission granted'),
+            err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.READ_SMS)
+        );
+
+        this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.READ_SMS]);
+    } 
+
     setupEventLogo() {
         // set default image
         this.storage.get(App.STORAGE_APP_EVENT_LOGO).then((val) => {
             this.eventLogo = val;
         });
-    }
+    } 
 
     setupExtraFields() {
         this.registerService.getExtraFields().then((data:any) => {
@@ -1088,16 +1102,62 @@ export class SignUpPage {
             content: 'Registering. Please wait...'
         });
         loading.present();
+
         this.registerService.register(this.form).then((data:any) => {
             loading.dismiss();
 
             if(data.success){
-               this.saveLoginUser(data.content);
+                this.codeConfirmation(data.content);
+                this.smsStartWatch(data.content);
+               //this.saveLoginUser(data.content);
             }
             else{
                this.showAlertMessage(data.message);
             }
         });
+    }
+
+    codeConfirmation(arg) {
+            this.conf = this.alertCtrl.create({
+                title: 'Code confirm',
+                inputs: [
+                    {
+                        name: 'code',
+                        placeholder: 'Your code',
+                        id: 'js-code-confirm-input'
+                    }
+                ],
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: data => {
+                            console.log('Cancel clicked');
+                        }
+                    },
+                    {
+                        text: 'Send',
+                        cssClass: 'js-code-confirm',
+                        handler: data => {
+                            if (this.validateCode(data.code)) {
+                                // logged in!
+                                this.checkSmsCodeApi(data.code, arg);
+                                
+                            } else {
+                                // invalid login
+                                this.showAlertMessage('Incorrect code. Try again');
+                                return false;
+                            }
+                        }
+                    }
+                ]
+            });
+            this.conf.present();
+    
+    }
+
+    validateCode (code) {
+       return code.length == this.smsCodeLength ? true : false;
     }
 
     preRegisterUser(mobileNumber) {
@@ -1221,6 +1281,7 @@ export class SignUpPage {
         if (this.canSubmit()) {
             
             this.registerUser();
+
         }
     }
 
@@ -1318,35 +1379,54 @@ export class SignUpPage {
         myElement.click();
     }
 
-    testSms() {
-        console.log('It\'s test sms fn gi');
-        //document.addEventListener('onSMSArrive', function(e){
-            	//var sms = e.data;
-            	
-            	// smsList.push( sms );
-            	// updateStatus('SMS arrived, count: ' + smsList.length );
-            	
-            	// // sms.address
-            	// // sms.body
-            	
-            	// var divdata = $('div#data');
-            	// divdata.html( divdata.html() + JSON.stringify( sms ) );
-            	
-            //});
-    }
+    confClose() {
+        this.conf.dismiss();
+    }   
+    toastShow() {
+        let toast = this.toastCtrl.create({
+            message: 'Successfully registered',
+            duration: 3000,
+            position: 'top'
+        });
 
-    smsStartWatch() {
-        alert('smsStartWatch running');
+        toast.present();
+    }   
+
+    smsStartWatch(userData) {
+
         if(SMS) SMS.startWatch(() => {
-                alert('watching watching started');
+   
                 document.addEventListener('onSMSArrive', (e:any) => {
-                    var sms = e;
-                    var sms1 = JSON.stringify(e);
-                    alert(sms);
-                    alert(sms1);
+                    const sms: string = e.data.body;
+                    let a, code;
+                    if(sms && sms.length >= this.smsCodeLength) {
+                        a = sms.search(/\d{5}/);
+                        if(a != -1) {
+                            this.confClose();
+                            code = sms.substr(a, 5);
+                            this.checkSmsCodeApi(code, userData);
+                        } else {
+                            this.showAlertMessage('Incorrect code. Try again');
+                        }
+                    } else {
+                        this.showAlertMessage('Incorrect SMS');
+                    }
                 });
         	},() => {
         		alert('failed to start watching');
         	});
+    }
+
+    checkSmsCodeApi(code, userData) {
+        //send code to back for validation
+        let loading = this.loadingCtrl.create({
+            content: 'Checking code. Please wait...'
+        });
+        loading.present();
+        setTimeout(() => {
+            loading.dismiss();
+            this.toastShow();
+            this.saveLoginUser(userData);
+        }, 2000);
     }
 }
