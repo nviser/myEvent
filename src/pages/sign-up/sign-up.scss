@@ -46,15 +46,16 @@ page-sign-up {
            ion-input {
                background-color: white;
                &.tm-countrycode {
-                   width: 50px;
+                   width: 30%;
                    input {
                        width: 50px;
                    }
                }
                &.tm-phone {
-                   width: 185px;
+                   width: 40%;
+                   overflow: hidden;
                    input {
-                       width: 185px;
+                       width: 95%;
                    }
                }
            }

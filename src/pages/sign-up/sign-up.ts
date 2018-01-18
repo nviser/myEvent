@@ -1120,6 +1120,7 @@ export class SignUpPage {
     codeConfirmation(arg) {
             this.conf = this.alertCtrl.create({
                 title: 'Code confirm',
+                enableBackdropDismiss: false,
                 inputs: [
                     {
                         name: 'code',
