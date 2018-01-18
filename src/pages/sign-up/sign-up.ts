@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import * as App from '../../config/app';
 import { RegisterServiceProvider } from '../../providers/register-service/register-service';
-import { AlertController, LoadingController } from 'ionic-angular';
+import { AlertController, LoadingController, ModalController } from 'ionic-angular';
 import { DashboardPage } from '../dashboard/dashboard';
 import { RegisterPage } from '../register/register';
 import { EventServiceProvider } from '../../providers/event-service/event-service';
@@ -44,7 +44,8 @@ export class SignUpPage {
     conf: any;
 
     constructor(private device: Device,public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public registerService: RegisterServiceProvider, public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController, public eventService: EventServiceProvider, public events:Events, public apiServiceProvider:ApiServiceProvider, private platform:Platform, public androidPermissions: AndroidPermissions, private toastCtrl: ToastController) {
+    public loadingCtrl: LoadingController, public eventService: EventServiceProvider, public events:Events, public apiServiceProvider:ApiServiceProvider, private platform:Platform, 
+    public androidPermissions: AndroidPermissions, private toastCtrl: ToastController, public modalCtrl: ModalController) {
         this.form = {};
 
         this.setupEventLogo();
@@ -61,7 +62,7 @@ export class SignUpPage {
         this.txtPrivacyPolicy = '';
         this.form.gender = 'male';
         this.setupPrivacyPolicy();
-        this.form.countrycode="+61";
+        this.form.countrycode="+60";
         this.smsCodeLength = 5;
         this.countries =
         [
@@ -69,7 +70,11 @@ export class SignUpPage {
                 name: "United States",
                 dial_code: "+1",
                 code: "US"
-            }, {
+            },{
+                name: "Malaysia",
+                dial_code: "+60",
+                code: "MY"
+            },{
                 name: "Israel",
                 dial_code: "+972",
                 code: "IL"
@@ -509,10 +514,6 @@ export class SignUpPage {
                 name: "Malawi",
                 dial_code: "+265",
                 code: "MW"
-            }, {
-                name: "Malaysia",
-                dial_code: "+60",
-                code: "MY"
             }, {
                 name: "Maldives",
                 dial_code: "+960",
@@ -1037,7 +1038,16 @@ export class SignUpPage {
         ]
     }
 
-      ionViewWillEnter() {
+    openModal() {
+        let contactModal = this.modalCtrl.create('ModalPage');
+        contactModal.present();
+    }
+
+    closeModal() {
+
+    }
+
+    ionViewWillEnter() {
         this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_SMS).then(
             success => console.log('Permission granted'),
             err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.READ_SMS)
