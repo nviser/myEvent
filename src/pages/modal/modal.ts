@@ -14,8 +14,9 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'modal.html',
 })
 export class ModalPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController) {
+    confirmationCode: any;
+    isWarnShow: any = false;
+    constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController) {
   }
   
   ionViewDidLoad() {
@@ -23,7 +24,16 @@ export class ModalPage {
   }
 
   closeModal() {
-    this.viewCtrl.dismiss();
+      this.viewCtrl.dismiss({'code': this.confirmationCode});
+  }
+
+  checkCode() {
+    if(this.confirmationCode && this.confirmationCode.length == 5) {
+      this.closeModal();
+    } else {
+      this.isWarnShow = true;
+    }
+
   }
 
 }

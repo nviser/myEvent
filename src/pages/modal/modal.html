@@ -19,7 +19,8 @@
 <ion-content padding>
   <ion-item>
     <!-- <ion-label color="primary" class="text-center" floating>Verification Code</ion-label> -->
-    <ion-input placeholder="Verification Code" class="tm-ver-code" clearInput ></ion-input>
+    <ion-input [(ngModel)]="confirmationCode" placeholder="Verification Code" class="tm-ver-code" clearInput ></ion-input>
   </ion-item>
-  <button ion-button block>Submit Verification Code</button>
+  <div class="warn-msg" ion-text color="danger" *ngIf="isWarnShow">Wrong code</div>
+  <button ion-button block (click)="checkCode()">Submit Verification Code</button>
 </ion-content>

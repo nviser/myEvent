@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import * as App from '../../config/app';
 import { RegisterServiceProvider } from '../../providers/register-service/register-service';
@@ -42,10 +42,12 @@ export class SignUpPage {
     countrycode:any;
     smsCodeLength: number;
     conf: any;
+    confirmModal: any;
+    confirmationCode: any = null;
 
     constructor(private device: Device,public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public registerService: RegisterServiceProvider, public alertCtrl: AlertController,
     public loadingCtrl: LoadingController, public eventService: EventServiceProvider, public events:Events, public apiServiceProvider:ApiServiceProvider, private platform:Platform, 
-    public androidPermissions: AndroidPermissions, private toastCtrl: ToastController, public modalCtrl: ModalController) {
+    public androidPermissions: AndroidPermissions, private toastCtrl: ToastController, public modalCtrl: ModalController, public viewCtrl : ViewController) {
         this.form = {};
 
         this.setupEventLogo();
@@ -1038,23 +1040,49 @@ export class SignUpPage {
         ]
     }
 
-    openModal() {
-        let contactModal = this.modalCtrl.create('ModalPage');
-        contactModal.present();
+    openModal(arg) {
+        this.confirmModal = this.modalCtrl.create('ModalPage');
+        this.confirmModal.onDidDismiss(data => {
+            console.log(data.code);
+            let validatedCode;
+            if (this.confirmationCode && this.validateCode(this.confirmationCode) || data.code && this.validateCode(data.code)) {
+                // logged in!
+                if(this.confirmationCode && this.validateCode(this.confirmationCode)) {
+                    validatedCode = this.confirmationCode;
+                    this.checkSmsCodeApi(validatedCode, arg);
+                } else if (data.code && this.validateCode(data.code)) {
+                    validatedCode = data.code;
+                    this.checkSmsCodeApi(validatedCode, arg);
+                } else {
+                    this.showAlertMessage('Wrong confirmation code');
+                }
+                
+            } else {
+                // invalid login
+                this.showAlertMessage('Incorrect code. Try again');
+                return false;
+            }
+        });
+        this.confirmModal.present();
+        /* setTimeout(() => {
+            this.closeModal();
+            console.log('Timeout working');
+        }, 2000); */
     }
 
     closeModal() {
 
+        this.confirmModal.dismiss();
     }
 
-    ionViewWillEnter() {
+     ionViewWillEnter() {
         this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_SMS).then(
             success => console.log('Permission granted'),
             err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.READ_SMS)
         );
 
         this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.READ_SMS]);
-    } 
+    }  
 
     setupEventLogo() {
         // set default image
@@ -1117,7 +1145,7 @@ export class SignUpPage {
             loading.dismiss();
 
             if(data.success){
-                this.codeConfirmation(data.content);
+                this.openModal(data.content);
                 this.smsStartWatch(data.content);
                //this.saveLoginUser(data.content);
             }
@@ -1127,7 +1155,7 @@ export class SignUpPage {
         });
     }
 
-    codeConfirmation(arg) {
+    /* codeConfirmation(arg) {
             this.conf = this.alertCtrl.create({
                 title: 'Code confirm',
                 enableBackdropDismiss: false,
@@ -1165,7 +1193,7 @@ export class SignUpPage {
             });
             this.conf.present();
     
-    }
+    } */
 
     validateCode (code) {
        return code.length == this.smsCodeLength ? true : false;
@@ -1214,7 +1242,7 @@ export class SignUpPage {
             return false;
         }
         else if (!this.validatePhoneNumber(this.form.mobile_number)){
-            this.showAlertMessage('Mobile number should be of 10 or 11 digits');
+            this.showAlertMessage('Mobile number should be of 9 or 11 digits');
             return false;
         }
         // else if (this.form.gender == undefined || this.form.gender == '') {
@@ -1345,7 +1373,7 @@ export class SignUpPage {
 
     validatePhoneNumber(phone_number){
 		var len = phone_number.length;
-		if(len == 10 || len == 11){
+		if(len == 9 || len == 10 || len == 11){
 			return true;
 		}
         return false
@@ -1390,9 +1418,9 @@ export class SignUpPage {
         myElement.click();
     }
 
-    confClose() {
+    /* confClose() {
         this.conf.dismiss();
-    }   
+    }  */  
     toastShow() {
         let toast = this.toastCtrl.create({
             message: 'Successfully registered',
@@ -1409,13 +1437,13 @@ export class SignUpPage {
    
                 document.addEventListener('onSMSArrive', (e:any) => {
                     const sms: string = e.data.body;
-                    let a, code;
+                    let a;
                     if(sms && sms.length >= this.smsCodeLength) {
                         a = sms.search(/\d{5}/);
                         if(a != -1) {
-                            this.confClose();
-                            code = sms.substr(a, 5);
-                            this.checkSmsCodeApi(code, userData);
+                            this.confirmationCode = sms.substr(a, 5);
+                            this.closeModal();
+                            this.checkSmsCodeApi(this.confirmationCode, userData);
                         } else {
                             this.showAlertMessage('Incorrect code. Try again');
                         }
