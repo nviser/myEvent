@@ -46,16 +46,16 @@ page-sign-up {
            ion-input {
                background-color: white;
                &.tm-countrycode {
-                   width: 5vw;
+                   width: 5vw !important;
                    input {
-                       width: 30px;
+                       width: 30px !important;
                    }
                }
                &.tm-phone {
-                   width: 50vw;
+                   width: 47vw !important;
                    /* overflow: hidden; */
                    input {
-                       width: 48vw;
+                       width: 48vw !important;
                    }
                }
            }
@@ -150,25 +150,25 @@ page-sign-up {
        
     }
     
-    @media screen and (max-width: 375px) {
+   /*  @media screen and (max-width: 375px) {
         page-sign-up {
     
             .sign-up-form {
         
                 ion-input {
                     &.tm-countrycode {
-                        width: 15%;
+                        width: 5vw !important;
                         input {
-                            width: 30px;
+                            width: 30px !important;
                         }
                     }
                     &.tm-phone {
-                        width: 190px;
+                        width: 50vw !important;
                         input {
-                            width: 160px;
+                            width: 48vw !important;
                         }
                     }
                 }
             }
         }
-    }
+    } */
