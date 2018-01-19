@@ -1,0 +1,53 @@
+{
+  "name": "cordova-plugin-cszbar",
+  "version": "1.3.3",
+  "description": "Plugin to integrate with the ZBar barcode scanning library.",
+  "cordova": {
+    "id": "cordova-plugin-cszbar",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjwoon/csZBar.git"
+  },
+  "keywords": [
+    "cszbar",
+    "zbar",
+    "barcode",
+    "qr",
+    "qr code",
+    "scanner",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "engines": [
+    {
+      "name": "cordova-android",
+      "version": ">=3.0.0"
+    },
+    {
+      "name": "cordova-ios",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": {
+    "name": "TJ Woon",
+    "email": "tj@cloudsky.org"
+  },
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/tjwoon/csZBar/issues"
+  },
+  "homepage": "https://github.com/tjwoon/csZBar#readme",
+  "gitHead": "fc5dcc300b08d59aef51b15172720efefe873a96",
+  "readme": "**This repository is looking for a maintainer! If you believe you are the right person, please [leave a comment](https://github.com/tjwoon/csZBar/issues/60)!**\n\n\n\n# ZBar Barcode Scanner Plugin\n\nThis plugin integrates with the [ZBar](http://zbar.sourceforge.net/) library,\nexposing a JavaScript interface for scanning barcodes (QR Code, EAN-13/UPC-A, UPC-E, EAN-8, Code 128, Code 39, Interleaved 2 of 5, etc).\nIn this fork a button has been added to turn off and on device flash. In addition the plugin can now handle the device orientation change.\n\n## Installation\n\n    cordova plugin add cordova-plugin-cszbar\n\n## API\n\n### Scan barcode\n\n    cloudSky.zBar.scan(params, onSuccess, onFailure)\n\nArguments:\n\n- **params**: Optional parameters:\n\n    ```javascript\n    {\n        text_title: \"OPTIONAL Title Text - default = 'Scan QR Code'\", // Android only\n        text_instructions: \"OPTIONAL Instruction Text - default = 'Please point your camera at the QR code.'\", // Android only\n        camera: \"front\" || \"back\" // defaults to \"back\"\n        flash: \"on\" || \"off\" || \"auto\" // defaults to \"auto\". See Quirks\n        drawSight: true || false //defaults to true, create a red sight/line in the center of the scanner view.\n    }\n    ```\n\n- **onSuccess**: function (s) {...} _Callback for successful scan._\n- **onFailure**: function (s) {...} _Callback for cancelled scan or error._\n\nReturn:\n\n- success('scanned bar code') _Successful scan with value of scanned code_\n- error('cancelled') _If user cancelled the scan (with back button etc)_\n- error('misc error message') _Misc failure_\n\nStatus:\n\n- Android: DONE\n- iOS: DONE\n\n\n## LICENSE [Apache 2.0](LICENSE.md)\n\nThis plugin is released under the Apache 2.0 license, but the ZBar library on which it depends (and which is distribute with this plugin) is under the LGPL license (2.1).\n\n\n## Thanks\n\nThank you to @PaoloMessina and @nickgerman for code contributions.\n",
+  "readmeFilename": "README.md",
+  "_id": "cordova-plugin-cszbar@1.3.3",
+  "_shasum": "f444662b234c1b4079dc2a360068167753b0e029",
+  "_from": "git+https://github.com/tjwoon/csZBar.git#master",
+  "_resolved": "git+https://github.com/tjwoon/csZBar.git#fc5dcc300b08d59aef51b15172720efefe873a96"
+}

@@ -1,0 +1,51 @@
+{
+
+	"settings"		:"Seting",
+	"activities"	:"Aktiviti",
+	"profile"		:"Profil",
+	"rate_us"		:"Kadar Kami",
+	"logout" 		:"Log Keluar",
+	"change_language":"Change Language",
+
+	"enjoy_rewards"	:"Nikmati Ganjaran",
+	"game_rule"    	:"Peraturan Permainan ",
+	"total_score"  	:"Jumlah Markah Anda",
+	"your_score"	:"Markah Anda",
+	"scan_score" 	:"Imbasan Skor Anda",
+	"redeem" 		:"Redeem Now!",
+
+	"completed"		:"Selesai",
+	"update"		:"Kemas Kini",
+
+	"no_event"		:"Tiada acara aktif pada masa sekarang",
+
+	"name"			:"Nama",
+	"email"			:"Email",
+	"passport"		:"IC / Passport",
+	"phone" 		:"Telefon",
+	"gender"		:"Jantina",
+	"others"		:"Lain-lain",
+
+	"signout_title"	:"Adakah anda pasti mahu melog keluar",
+	"signout_label"	:"Anda tidak akan dapat log masuk selepas ini",
+	"signout_confirm":"Sahkan Daftar Keluar",
+
+	"welcome" 		:"Selamat Datang Ke",
+	"login_recent"	:"Kemasukan Baru-baru ini",
+	"check_in"		:"Daftar",
+
+	"choose_language":"Pilih bahasa pilihan anda",
+	"english_language":"Inggeris (EN)",
+	"chinese_language":"Chinese (CN)",
+	"malay_language"  :"Malay (MY)",
+
+	"home" 			  :"Home",
+	"score" 		  :"Markah",
+	"event_id" 		  :"Acara ID",
+	"pre_registration":"Pra-Pendaftaran",
+	"profile_id": "Profil ID",
+
+	"register_now"	:"DAFTAR SEKARANG",
+	"login"			:"LOG MASUK",
+	"view_score"	:"A little skor"
+}
