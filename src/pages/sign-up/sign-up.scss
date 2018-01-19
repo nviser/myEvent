@@ -46,16 +46,16 @@ page-sign-up {
            ion-input {
                background-color: white;
                &.tm-countrycode {
-                   width: 30%;
+                   width: 15%;
                    input {
-                       width: 50px;
+                       width: 30px;
                    }
                }
                &.tm-phone {
-                   width: 40%;
-                   overflow: hidden;
+                   width: 205px;
+                   /* overflow: hidden; */
                    input {
-                       width: 95%;
+                       width: 205px;
                    }
                }
            }
@@ -150,3 +150,25 @@ page-sign-up {
        
     }
     
+    @media screen and (max-width: 375px) {
+        page-sign-up {
+    
+            .sign-up-form {
+        
+                ion-input {
+                    &.tm-countrycode {
+                        width: 15%;
+                        input {
+                            width: 30px;
+                        }
+                    }
+                    &.tm-phone {
+                        width: 190px;
+                        input {
+                            width: 160px;
+                        }
+                    }
+                }
+            }
+        }
+    }
