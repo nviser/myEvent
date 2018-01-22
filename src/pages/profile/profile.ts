@@ -7,6 +7,10 @@ import { ProfileServiceProvider } from '../../providers/profile-service/profile-
 import { Storage } from '@ionic/storage';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
+import { ToastController } from 'ionic-angular';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 /**
  * Generated class for the ProfilePage page.
  *
@@ -29,13 +33,103 @@ export class ProfilePage {
     qrData: any = null;
     createdCode: any = null;
 
+    imageURI:any;
+    imageFileName:any;
+
+    myPhoto: any;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, public registerService: RegisterServiceProvider,
         public alertCtrl: AlertController, public profileService: ProfileServiceProvider, public loadingCtrl: LoadingController,
-        public storage: Storage, private barcodeScanner: BarcodeScanner) {
+        public storage: Storage, private barcodeScanner: BarcodeScanner, private transfer: FileTransfer, private camera: Camera,  public toastCtrl: ToastController
+    ) {
         this.form = {};
 
         this.setupExtraFields();
     }
+
+    toastShow(msg) {
+        let toast = this.toastCtrl.create({
+            message: msg,
+            duration: 3000,
+            position: 'top'
+        });
+
+        toast.present();
+    } 
+
+    takePhoto() {
+        this.camera.getPicture({
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        sourceType: this.camera.PictureSourceType.CAMERA,
+        encodingType: this.camera.EncodingType.PNG,
+        saveToPhotoAlbum: true
+        }).then(imageData => {
+            this.myPhoto = imageData;
+            // this.uploadPhoto(imageData);
+        }, error => {
+            this.toastShow(error);
+            // this.error = JSON.stringify(error);
+        });
+    }
+
+    selectPhoto(): void {
+        this.camera.getPicture({
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        quality: 100,
+        encodingType: this.camera.EncodingType.PNG,
+        }).then(imageData => {
+            this.myPhoto = imageData;
+            //this.uploadPhoto(imageData);
+        }, error => {
+            // this.error = JSON.stringify(error);
+            this.toastShow(error);
+        });
+    }
+
+/*     getImage() {
+        const options: CameraOptions = {
+            quality: 100,
+            destinationType: this.camera.DestinationType.FILE_URI,
+            sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+        }
+
+        this.camera.getPicture(options).then((imageData) => {
+            this.imageURI = imageData;
+        }, (err) => {
+            console.log(err);
+            this.toastShow(err);
+        });
+    }
+
+    uploadFile() {
+        let loader = this.loadingCtrl.create({
+            content: "Uploading..."
+        });
+        loader.present();
+        const fileTransfer: FileTransferObject = this.transfer.create();
+
+        let options: FileUploadOptions = {
+            fileKey: 'ionicfile',
+            fileName: 'ionicfile',
+            chunkedMode: false,
+            mimeType: "image/jpeg",
+            headers: {}
+        }
+
+        fileTransfer.upload(this.imageURI, 'http://192.168.0.7:8080/api/uploadImage', options)
+            .then((data) => {
+            console.log(data+" Uploaded Successfully");
+            this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"
+            loader.dismiss();
+            this.toastShow("Image uploaded successfully");
+        }, (err) => {
+            console.log(err);
+            loader.dismiss();
+            this.toastShow(err);
+        });
+    } */
 
     createCode() {
         if( this.form.age !== undefined 
@@ -161,7 +255,7 @@ export class ProfilePage {
             return false;
         }
         else if (this.form.key_in_company_name == undefined || this.form.key_in_company_name == '') {
-            this.showAlertMessage('Key in company name is required');
+            this.showAlertMessage('Company name is required');
             return false;
         }
         else if (this.form.designation == undefined || this.form.designation == '') {

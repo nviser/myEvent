@@ -38,9 +38,9 @@ import { AndroidPermissions} from '@ionic-native/android-permissions';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
-/* import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import { Camera } from '@ionic-native/camera'; */
+import { Camera } from '@ionic-native/camera';
 
 
 
@@ -61,13 +61,13 @@ export function createTranslateLoader(http: Http) {
     ProfilePage,
     SignOutPage,
     SignUpPage,
-    ScorePage
+    ScorePage,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     ComponentsModule,
-     ImgCacheModule,
+    ImgCacheModule,
     NgxQRCodeModule,
     IonicModule.forRoot(MyApp,{
     mode : 'ios',
@@ -111,11 +111,10 @@ export function createTranslateLoader(http: Http) {
     Device,
     AndroidPermissions,
     BarcodeScanner,
-    /* FileTransfer,
-    FileUploadOptions,
+    FileTransfer,
     FileTransferObject,
     File,
-    Camera */
+    Camera
   ]
 })
 export class AppModule {}
