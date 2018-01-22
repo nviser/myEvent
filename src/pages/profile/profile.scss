@@ -4,6 +4,10 @@ page-profile {
         padding: 15px;
         height: 100vh;
 
+        .scroll-content {
+            margin-bottom: 100px;
+        }
+
         .list-ios > .item-block:last-child,
         .list-ios > .item-wrapper:last-child .item-block,
         .list-ios > .item-block:first-child,

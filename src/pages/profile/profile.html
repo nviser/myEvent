@@ -22,7 +22,7 @@
             </ion-item>
             <ion-item class="form-input">
                 <ion-label>{{"name"|translate}}</ion-label>
-                <ion-input [(ngModel)]="form.name"></ion-input>
+                <ion-input [(ngModel)]="form.name" readonly></ion-input>
             </ion-item>
             <!-- <ion-item class="form-input">
                 <ion-label>{{"passport"|translate}}</ion-label>
@@ -30,15 +30,15 @@
             </ion-item> -->
             <ion-item class="form-input">
                 <ion-label>{{"email"|translate}}</ion-label>
-                <ion-input readonly="true" type="email" [(ngModel)]="form.email"></ion-input>
+                <ion-input readonly="true" type="email" [(ngModel)]="form.email" readonly></ion-input>
             </ion-item>
             <ion-item class="form-input">
                 <ion-label>{{"phone"|translate}}</ion-label>
-                <ion-input type="tel" [(ngModel)]="form.mobile_number"></ion-input>
+                <ion-input type="tel" [(ngModel)]="form.mobile_number" readonly></ion-input>
             </ion-item>
             <ion-item class="form-input">
                 <ion-label>{{"gender"|translate}}</ion-label>
-                <ion-input [(ngModel)]="form.gender" readonly (click)="showGenderSelection()"></ion-input>
+                <ion-input [(ngModel)]="form.gender" readonly></ion-input> <!-- (click)="showGenderSelection()" -->
             </ion-item>
             <ion-item *ngIf="extraFields != undefined && extraFields.length > 0">
                 <ion-label class="subtitle">{{"others"|translate}}</ion-label>
@@ -46,6 +46,18 @@
             <ion-item class="form-input" *ngFor="let field of extraFields">
                 <ion-label>{{field.name}}</ion-label>
                 <ion-input (input)="extraFieldInputChange($event.target.value, field.id)" value="{{ field.value ? field.value : '' }}"></ion-input>
+            </ion-item>
+            <ion-item class="form-input">
+                <ion-label>Key in company name</ion-label>
+                <ion-input [(ngModel)]="form.key_in_company_name"></ion-input>
+            </ion-item>
+            <ion-item class="form-input">
+                <ion-label>Designation</ion-label>
+                <ion-input [(ngModel)]="form.designation"></ion-input>
+            </ion-item>
+            <ion-item class="form-input">
+                <ion-label>Website</ion-label>
+                <ion-input [(ngModel)]="form.website"></ion-input>
             </ion-item>
             <ion-item>
                 <button id="submit-button" (click)="onSubmitForm()" ion-button outline>{{"update"|translate}}</button>

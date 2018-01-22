@@ -27770,6 +27770,10 @@ page-profile .register-form {
   height: 100vh;
 }
 
+page-profile .register-form .scroll-content {
+  margin-bottom: 100px;
+}
+
 page-profile .register-form .list-ios > .item-block:last-child,
 page-profile .register-form .list-ios > .item-wrapper:last-child .item-block,
 page-profile .register-form .list-ios > .item-block:first-child,
