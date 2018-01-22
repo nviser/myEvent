@@ -64,7 +64,7 @@ export class SignUpPage {
         this.txtPrivacyPolicy = '';
         this.form.gender = 'male';
         this.setupPrivacyPolicy();
-        this.form.countrycode="+60";
+        this.countrycode="+60";
         this.smsCodeLength = 5;
         this.countries =
         [
@@ -1141,6 +1141,8 @@ export class SignUpPage {
         });
         loading.present();
 
+        this.form.mobile_number = this.countrycode + this.form.phone_number;
+
         this.registerService.register(this.form).then((data:any) => {
             loading.dismiss();
 
@@ -1237,11 +1239,11 @@ export class SignUpPage {
             this.showAlertMessage('Email is not valid');
             return false;
         }
-        else if (this.form.mobile_number == undefined || this.form.mobile_number == '') {
+        else if (this.form.phone_number == undefined || this.form.phone_number == '') {
             this.showAlertMessage('Mobile number is required');
             return false;
         }
-        else if (!this.validatePhoneNumber(this.form.mobile_number)){
+        else if (!this.validatePhoneNumber(this.form.phone_number)){
             this.showAlertMessage('Mobile number should be of 9 or 11 digits');
             return false;
         }
