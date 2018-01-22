@@ -62,7 +62,17 @@
             <ion-item>
                 <button id="submit-button" (click)="onSubmitForm()" ion-button outline>{{"update"|translate}}</button>
             </ion-item>
+            <!-- <ion-item>
+                <button (click)="createCode()" ion-button outline>{{"create"|translate}}</button>
+            </ion-item> -->
         </ion-list>
+        <!-- <div id="qr_code"></div> -->
+        <ion-card *ngIf="createdCode">
+            <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
+            <!-- <ion-card-content>
+                <p>Value: {{ createdCode }}</p>
+            </ion-card-content> -->
+        </ion-card>
     </ion-scroll>
 
 </app-content>

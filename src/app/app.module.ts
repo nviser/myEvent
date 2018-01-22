@@ -35,6 +35,9 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { Device } from '@ionic-native/device';
 import { AndroidPermissions} from '@ionic-native/android-permissions';
 
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
 
 
 export function createTranslateLoader(http: Http) {
@@ -61,8 +64,9 @@ export function createTranslateLoader(http: Http) {
     HttpModule,
     ComponentsModule,
      ImgCacheModule,
+    NgxQRCodeModule,
     IonicModule.forRoot(MyApp,{
-		mode : 'ios'
+    mode : 'ios',
 	}),
     IonicStorageModule.forRoot(),
     IonicImageLoader.forRoot(),
@@ -101,7 +105,8 @@ export function createTranslateLoader(http: Http) {
     AppRate,
     Keyboard,
     Device,
-    AndroidPermissions
+    AndroidPermissions,
+    BarcodeScanner
   ]
 })
 export class AppModule {}

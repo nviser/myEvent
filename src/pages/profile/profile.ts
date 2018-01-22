@@ -5,6 +5,7 @@ import * as App from '../../config/app';
 import { RegisterServiceProvider } from '../../providers/register-service/register-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { Storage } from '@ionic/storage';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 /**
  * Generated class for the ProfilePage page.
@@ -23,15 +24,29 @@ export class ProfilePage {
     profile: any;
     extraFields: [{id:string, name:string}];
 
-    form: any
+    form: any;
     selectedGender: string;
+    qrData: any = null;
+    createdCode: any = null;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public registerService: RegisterServiceProvider,
         public alertCtrl: AlertController, public profileService: ProfileServiceProvider, public loadingCtrl: LoadingController,
-        public storage: Storage) {
+        public storage: Storage, private barcodeScanner: BarcodeScanner) {
         this.form = {};
 
         this.setupExtraFields();
+    }
+
+    createCode() {
+        if(this.form.key_in_company_name !== undefined 
+            && this.form.key_in_company_name !== ''
+            && this.form.designation !== undefined 
+            && this.form.designation !== ''
+            && this.form.website !== undefined 
+            && this.form.website !== ''
+        ) {
+            this.createdCode = JSON.stringify(this.form);
+        }
     }
 
     setupExtraFields() {
@@ -61,9 +76,14 @@ export class ProfilePage {
             identity_passport: profile.identity_passport,
             email: profile.email,
             mobile_number: profile.mobile_number,
-            gender: profile.gender
+            gender: profile.gender,
+            key_in_company_name: profile.key_in_company_name,
+            designation: profile.designation,
+            website: profile.website
+
         };
         this.selectedGender = profile.gender;
+        this.createCode();
 
         // extra fields
         let fields = data.extra_fields;
@@ -100,6 +120,7 @@ export class ProfilePage {
         // Check if all compulsory selection is selected
         if (this.canSubmit()) {
             this.updateProfile();
+            this.createCode();
         }
     }
 
@@ -131,6 +152,18 @@ export class ProfilePage {
         }
         else if (this.form.gender == undefined || this.form.gender == '') {
             this.showAlertMessage('Gender is required');
+            return false;
+        }
+        else if (this.form.key_in_company_name == undefined || this.form.key_in_company_name == '') {
+            this.showAlertMessage('Key in company name is required');
+            return false;
+        }
+        else if (this.form.designation == undefined || this.form.designation == '') {
+            this.showAlertMessage('designation is required');
+            return false;
+        }
+        else if (this.form.website == undefined || this.form.website == '') {
+            this.showAlertMessage('website is required');
             return false;
         }
 
