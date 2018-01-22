@@ -146,10 +146,10 @@ export class ProfilePage {
             this.showAlertMessage('Mobile number is required');
             return false;
         }
-        else if (!this.validatePhoneNumber(this.form.mobile_number)){
+       /*  else if (!this.validatePhoneNumber(this.form.mobile_number)){
             this.showAlertMessage('Mobile number should be digit 10');
             return false;
-        }
+        } */
         else if (this.form.gender == undefined || this.form.gender == '') {
             this.showAlertMessage('Gender is required');
             return false;
