@@ -2766,9 +2766,6 @@ ApiServiceProvider = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_android_permissions__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_ngx_qrcode2__ = __webpack_require__(340);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_barcode_scanner__ = __webpack_require__(335);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_file_transfer__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__ionic_native_file__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_camera__ = __webpack_require__(360);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2810,9 +2807,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
-
-
+/* import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { Camera } from '@ionic-native/camera'; */
 function createTranslateLoader(http) {
     return new __WEBPACK_IMPORTED_MODULE_27__ngx_translate_http_loader__["a" /* TranslateHttpLoader */](http, './assets/i18n/', '.json');
 }
@@ -2886,11 +2883,6 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_30__ionic_native_device__["a" /* Device */],
             __WEBPACK_IMPORTED_MODULE_31__ionic_native_android_permissions__["a" /* AndroidPermissions */],
             __WEBPACK_IMPORTED_MODULE_33__ionic_native_barcode_scanner__["a" /* BarcodeScanner */],
-            __WEBPACK_IMPORTED_MODULE_34__ionic_native_file_transfer__["a" /* FileTransfer */],
-            /*  FileUploadOptions, */
-            __WEBPACK_IMPORTED_MODULE_34__ionic_native_file_transfer__["b" /* FileTransferObject */],
-            __WEBPACK_IMPORTED_MODULE_35__ionic_native_file__["a" /* File */],
-            __WEBPACK_IMPORTED_MODULE_36__ionic_native_camera__["a" /* Camera */]
         ]
     })
 ], AppModule);
