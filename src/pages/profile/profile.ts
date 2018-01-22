@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { AlertController, LoadingController } from 'ionic-angular';
 import * as App from '../../config/app';
 import { RegisterServiceProvider } from '../../providers/register-service/register-service';
@@ -38,7 +38,9 @@ export class ProfilePage {
     }
 
     createCode() {
-        if(this.form.key_in_company_name !== undefined 
+        if( this.form.age !== undefined 
+            && this.form.age !== ''
+            && this.form.key_in_company_name !== undefined 
             && this.form.key_in_company_name !== ''
             && this.form.designation !== undefined 
             && this.form.designation !== ''
@@ -77,10 +79,10 @@ export class ProfilePage {
             email: profile.email,
             mobile_number: profile.mobile_number,
             gender: profile.gender,
+            age: profile.age,
             key_in_company_name: profile.key_in_company_name,
             designation: profile.designation,
             website: profile.website
-
         };
         this.selectedGender = profile.gender;
         this.createCode();
@@ -154,16 +156,20 @@ export class ProfilePage {
             this.showAlertMessage('Gender is required');
             return false;
         }
+        else if (this.form.age == undefined || this.form.age == '') {
+            this.showAlertMessage('Age is required');
+            return false;
+        }
         else if (this.form.key_in_company_name == undefined || this.form.key_in_company_name == '') {
             this.showAlertMessage('Key in company name is required');
             return false;
         }
         else if (this.form.designation == undefined || this.form.designation == '') {
-            this.showAlertMessage('designation is required');
+            this.showAlertMessage('Designation is required');
             return false;
         }
         else if (this.form.website == undefined || this.form.website == '') {
-            this.showAlertMessage('website is required');
+            this.showAlertMessage('Website is required');
             return false;
         }
 

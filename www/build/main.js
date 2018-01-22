@@ -1920,7 +1920,9 @@ var ProfilePage = (function () {
         this.setupExtraFields();
     }
     ProfilePage.prototype.createCode = function () {
-        if (this.form.key_in_company_name !== undefined
+        if (this.form.age !== undefined
+            && this.form.age !== ''
+            && this.form.key_in_company_name !== undefined
             && this.form.key_in_company_name !== ''
             && this.form.designation !== undefined
             && this.form.designation !== ''
@@ -1957,6 +1959,7 @@ var ProfilePage = (function () {
             email: profile.email,
             mobile_number: profile.mobile_number,
             gender: profile.gender,
+            age: profile.age,
             key_in_company_name: profile.key_in_company_name,
             designation: profile.designation,
             website: profile.website
@@ -2017,16 +2020,20 @@ var ProfilePage = (function () {
             this.showAlertMessage('Gender is required');
             return false;
         }
+        else if (this.form.age == undefined || this.form.age == '') {
+            this.showAlertMessage('Age is required');
+            return false;
+        }
         else if (this.form.key_in_company_name == undefined || this.form.key_in_company_name == '') {
             this.showAlertMessage('Key in company name is required');
             return false;
         }
         else if (this.form.designation == undefined || this.form.designation == '') {
-            this.showAlertMessage('designation is required');
+            this.showAlertMessage('Designation is required');
             return false;
         }
         else if (this.form.website == undefined || this.form.website == '') {
-            this.showAlertMessage('website is required');
+            this.showAlertMessage('Website is required');
             return false;
         }
         return true;
@@ -2088,7 +2095,7 @@ var ProfilePage = (function () {
 }());
 ProfilePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-profile',template:/*ion-inline-start:"C:\OpenServer\domains\MyEvent\src\pages\profile\profile.html"*/'<!--\n  Generated template for the DashboardPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n<ion-header class="header">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{"profile"|translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<app-content margin-top>\n    <ion-scroll class="register-form" scrollY="true">\n        <ion-list>\n            <ion-item style="text-align: center;" *ngIf="profile != undefined">\n                <ion-label >{{"profile_id"|translate}}: {{profile.draw_id}}</ion-label>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"name"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.name" readonly></ion-input>\n            </ion-item>\n            <!-- <ion-item class="form-input">\n                <ion-label>{{"passport"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.identity_passport"></ion-input>\n            </ion-item> -->\n            <ion-item class="form-input">\n                <ion-label>{{"email"|translate}}</ion-label>\n                <ion-input readonly="true" type="email" [(ngModel)]="form.email" readonly></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"phone"|translate}}</ion-label>\n                <ion-input type="tel" [(ngModel)]="form.mobile_number" readonly></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"gender"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.gender" readonly></ion-input> <!-- (click)="showGenderSelection()" -->\n            </ion-item>\n            <ion-item *ngIf="extraFields != undefined && extraFields.length > 0">\n                <ion-label class="subtitle">{{"others"|translate}}</ion-label>\n            </ion-item>\n            <ion-item class="form-input" *ngFor="let field of extraFields">\n                <ion-label>{{field.name}}</ion-label>\n                <ion-input (input)="extraFieldInputChange($event.target.value, field.id)" value="{{ field.value ? field.value : \'\' }}"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Key in company name</ion-label>\n                <ion-input [(ngModel)]="form.key_in_company_name"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Designation</ion-label>\n                <ion-input [(ngModel)]="form.designation"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Website</ion-label>\n                <ion-input [(ngModel)]="form.website"></ion-input>\n            </ion-item>\n            <ion-item>\n                <button id="submit-button" (click)="onSubmitForm()" ion-button outline>{{"update"|translate}}</button>\n            </ion-item>\n            <!-- <ion-item>\n                <button (click)="createCode()" ion-button outline>{{"create"|translate}}</button>\n            </ion-item> -->\n        </ion-list>\n        <!-- <div id="qr_code"></div> -->\n        <ion-card *ngIf="createdCode">\n            <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>\n            <!-- <ion-card-content>\n                <p>Value: {{ createdCode }}</p>\n            </ion-card-content> -->\n        </ion-card>\n    </ion-scroll>\n\n</app-content>\n'/*ion-inline-end:"C:\OpenServer\domains\MyEvent\src\pages\profile\profile.html"*/,
+        selector: 'page-profile',template:/*ion-inline-start:"C:\OpenServer\domains\MyEvent\src\pages\profile\profile.html"*/'<!--\n  Generated template for the DashboardPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n<ion-header class="header">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{"profile"|translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<app-content margin-top>\n    <ion-scroll class="register-form" scrollY="true">\n        <ion-list>\n            <ion-item style="text-align: center;" *ngIf="profile != undefined">\n                <ion-label >{{"profile_id"|translate}}: {{profile.draw_id}}</ion-label>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"name"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.name" readonly></ion-input>\n            </ion-item>\n            <!-- <ion-item class="form-input">\n                <ion-label>{{"passport"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.identity_passport"></ion-input>\n            </ion-item> -->\n            <ion-item class="form-input">\n                <ion-label>{{"email"|translate}}</ion-label>\n                <ion-input readonly="true" type="email" [(ngModel)]="form.email" readonly></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"phone"|translate}}</ion-label>\n                <ion-input type="tel" [(ngModel)]="form.mobile_number" readonly></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"gender"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.gender" readonly></ion-input> <!-- (click)="showGenderSelection()" -->\n            </ion-item>\n            <ion-item *ngIf="extraFields != undefined && extraFields.length > 0">\n                <ion-label class="subtitle">{{"others"|translate}}</ion-label>\n            </ion-item>\n            <ion-item class="form-input" *ngFor="let field of extraFields">\n                <ion-label>{{field.name}}</ion-label>\n                <ion-input (input)="extraFieldInputChange($event.target.value, field.id)" value="{{ field.value ? field.value : \'\' }}"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Age</ion-label>\n                <ion-input type="tel" [(ngModel)]="form.age"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Company</ion-label>\n                <ion-input [(ngModel)]="form.key_in_company_name"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Designation</ion-label>\n                <ion-input [(ngModel)]="form.designation"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Website</ion-label>\n                <ion-input [(ngModel)]="form.website"></ion-input>\n            </ion-item>\n            <ion-item>\n                <button id="submit-button" (click)="onSubmitForm()" ion-button outline>{{"update"|translate}}</button>\n            </ion-item>\n            <!-- <ion-item>\n                <button (click)="createCode()" ion-button outline>{{"create"|translate}}</button>\n            </ion-item> -->\n        </ion-list>\n        <!-- <div id="qr_code"></div> -->\n        <ion-card *ngIf="createdCode">\n            <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>\n            <!-- <ion-card-content>\n                <p>Value: {{ createdCode }}</p>\n            </ion-card-content> -->\n        </ion-card>\n    </ion-scroll>\n\n</app-content>\n'/*ion-inline-end:"C:\OpenServer\domains\MyEvent\src\pages\profile\profile.html"*/,
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_register_service_register_service__["a" /* RegisterServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_register_service_register_service__["a" /* RegisterServiceProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__providers_profile_service_profile_service__["a" /* ProfileServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_profile_service_profile_service__["a" /* ProfileServiceProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_barcode_scanner__["a" /* BarcodeScanner */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_barcode_scanner__["a" /* BarcodeScanner */]) === "function" && _h || Object])
 ], ProfilePage);
@@ -2759,12 +2766,18 @@ ApiServiceProvider = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_android_permissions__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32_ngx_qrcode2__ = __webpack_require__(340);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_barcode_scanner__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_file_transfer__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__ionic_native_file__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_camera__ = __webpack_require__(360);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -2872,7 +2885,12 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_29__ionic_native_keyboard__["a" /* Keyboard */],
             __WEBPACK_IMPORTED_MODULE_30__ionic_native_device__["a" /* Device */],
             __WEBPACK_IMPORTED_MODULE_31__ionic_native_android_permissions__["a" /* AndroidPermissions */],
-            __WEBPACK_IMPORTED_MODULE_33__ionic_native_barcode_scanner__["a" /* BarcodeScanner */]
+            __WEBPACK_IMPORTED_MODULE_33__ionic_native_barcode_scanner__["a" /* BarcodeScanner */],
+            __WEBPACK_IMPORTED_MODULE_34__ionic_native_file_transfer__["a" /* FileTransfer */],
+            /*  FileUploadOptions, */
+            __WEBPACK_IMPORTED_MODULE_34__ionic_native_file_transfer__["b" /* FileTransferObject */],
+            __WEBPACK_IMPORTED_MODULE_35__ionic_native_file__["a" /* File */],
+            __WEBPACK_IMPORTED_MODULE_36__ionic_native_camera__["a" /* Camera */]
         ]
     })
 ], AppModule);

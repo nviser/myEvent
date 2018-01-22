@@ -48,7 +48,11 @@
                 <ion-input (input)="extraFieldInputChange($event.target.value, field.id)" value="{{ field.value ? field.value : '' }}"></ion-input>
             </ion-item>
             <ion-item class="form-input">
-                <ion-label>Key in company name</ion-label>
+                <ion-label>Age</ion-label>
+                <ion-input type="tel" [(ngModel)]="form.age"></ion-input>
+            </ion-item>
+            <ion-item class="form-input">
+                <ion-label>Company</ion-label>
                 <ion-input [(ngModel)]="form.key_in_company_name"></ion-input>
             </ion-item>
             <ion-item class="form-input">
