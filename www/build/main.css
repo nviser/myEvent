@@ -27765,6 +27765,18 @@ page-no-event p {
   color: white;
 }
 
+page-profile .img-wrap {
+  text-align: center;
+}
+
+page-profile .img-wrap .tm-user-photo {
+  width: 50%;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 5px gray;
+  box-shadow: 0 0 5px gray;
+}
+
 page-profile .register-form {
   padding: 15px;
   height: 100vh;

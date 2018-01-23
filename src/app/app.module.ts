@@ -36,11 +36,10 @@ import { Device } from '@ionic-native/device';
 import { AndroidPermissions} from '@ionic-native/android-permissions';
 
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 
 
@@ -110,11 +109,10 @@ export function createTranslateLoader(http: Http) {
     Keyboard,
     Device,
     AndroidPermissions,
-    BarcodeScanner,
+    Camera,
     FileTransfer,
     FileTransferObject,
     File,
-    Camera
   ]
 })
 export class AppModule {}

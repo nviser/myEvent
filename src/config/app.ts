@@ -1,3 +1,4 @@
+//export const API_ENDPOINT = "http://35.224.236.132/event/public/api/v1";
 export const API_ENDPOINT = "http://www.mymobile.asia/app/public/api/v1";
 //export const API_ENDPOINT = "http://192.168.88.122/system/qrsystem/public/index.php/api/v1";
 

@@ -1,5 +1,15 @@
 page-profile {
 
+    .img-wrap {
+        text-align: center;
+        .tm-user-photo {
+            width: 50%;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 5px gray;
+        }
+    }
+
     .register-form {
         padding: 15px;
         height: 100vh;

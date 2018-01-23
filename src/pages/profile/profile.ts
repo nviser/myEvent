@@ -5,10 +5,9 @@ import * as App from '../../config/app';
 import { RegisterServiceProvider } from '../../providers/register-service/register-service';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { Storage } from '@ionic/storage';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { ToastController } from 'ionic-angular';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
@@ -40,7 +39,7 @@ export class ProfilePage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public registerService: RegisterServiceProvider,
         public alertCtrl: AlertController, public profileService: ProfileServiceProvider, public loadingCtrl: LoadingController,
-        public storage: Storage, private barcodeScanner: BarcodeScanner, private transfer: FileTransfer, private camera: Camera,  public toastCtrl: ToastController
+        public storage: Storage, private transfer: FileTransfer, private camera: Camera,  public toastCtrl: ToastController
     ) {
         this.form = {};
 
@@ -58,34 +57,34 @@ export class ProfilePage {
     } 
 
     takePhoto() {
-        this.camera.getPicture({
-        quality: 100,
-        destinationType: this.camera.DestinationType.FILE_URI,
-        sourceType: this.camera.PictureSourceType.CAMERA,
-        encodingType: this.camera.EncodingType.PNG,
-        saveToPhotoAlbum: true
-        }).then(imageData => {
-            this.myPhoto = imageData;
-            // this.uploadPhoto(imageData);
-        }, error => {
-            this.toastShow(error);
-            // this.error = JSON.stringify(error);
-        });
+            const options: CameraOptions = {
+                quality: 100,
+                destinationType: this.camera.DestinationType.FILE_URI,
+                sourceType: this.camera.PictureSourceType.CAMERA,
+                encodingType: this.camera.EncodingType.PNG,
+            }
+            this.camera.getPicture(options).then(imageData => {
+                this.myPhoto = imageData;
+                // this.uploadPhoto(imageData);
+            }, error => {
+                this.toastShow(error);
+                // this.error = JSON.stringify(error);
+            });
     }
 
     selectPhoto(): void {
-        this.camera.getPicture({
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-        destinationType: this.camera.DestinationType.FILE_URI,
-        quality: 100,
-        encodingType: this.camera.EncodingType.PNG,
-        }).then(imageData => {
-            this.myPhoto = imageData;
-            //this.uploadPhoto(imageData);
-        }, error => {
-            // this.error = JSON.stringify(error);
-            this.toastShow(error);
-        });
+            this.camera.getPicture({
+                sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+                destinationType: this.camera.DestinationType.FILE_URI,
+                quality: 100,
+                encodingType: this.camera.EncodingType.PNG,
+            }).then(imageData => {
+                this.myPhoto = imageData;
+                //this.uploadPhoto(imageData);
+            }, error => {
+                // this.error = JSON.stringify(error);
+                this.toastShow(error);
+            });
     }
 
 /*     getImage() {
