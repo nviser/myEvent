@@ -39,7 +39,7 @@ export class ProfilePage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public registerService: RegisterServiceProvider,
         public alertCtrl: AlertController, public profileService: ProfileServiceProvider, public loadingCtrl: LoadingController,
-        public storage: Storage, private transfer: FileTransfer, private camera: Camera,  public toastCtrl: ToastController
+        public storage: Storage, private transfer: FileTransfer, private camera: Camera,  public toastCtrl: ToastController, public actionSheetCtrl: ActionSheetController
     ) {
         this.form = {};
 
@@ -55,6 +55,32 @@ export class ProfilePage {
 
         toast.present();
     } 
+
+    addPhoto() {
+        let actionSheet = this.actionSheetCtrl.create({
+            title: 'Choose source',
+            buttons: [
+            {
+                text: 'Use camera',
+                handler: () => {
+                    this.takePhoto();
+                }
+            },
+            {
+                text: 'Use album',
+                handler: () => {
+                    this.selectPhoto();
+                }
+            },
+            {
+                text: 'Cancel',
+                role: 'cancel'
+            }
+            ]
+        });
+
+        actionSheet.present();
+    }
 
     takePhoto() {
             const options: CameraOptions = {
