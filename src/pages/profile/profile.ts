@@ -7,7 +7,7 @@ import { ProfileServiceProvider } from '../../providers/profile-service/profile-
 import { Storage } from '@ionic/storage';
 
 import { ToastController } from 'ionic-angular';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
@@ -36,6 +36,7 @@ export class ProfilePage {
     imageFileName:any;
 
     myPhoto: any;
+    testPhoto: any = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAUNSURBVHjarJZdSBxXGIbfmdmZXbM/cZOssmHjH3HLuoRY1nVtMSokF4n5IbkoaS1IetFKITepYqFQcpO7tjRtIaWlvagpvRFMf8BALowhQpoEtGDiBiWWsFlc0erozu64szPn60U7YaM72zXNB+di5nznfc55zzfnDNff3w8AsNvtWFpaQiKRAGMM8/Pz2L17NyRJwvLyMhwOxwlZljvS6XTQ6XS+trCwUGEYBgKBgKFp2u8cx8243e4Jj8dzTVEU6LoOu92OhoYGZLNZNDY2IhAIQFVVAIANRYKIUFFRAUEQ+FQq9VEymXwrm802mf3Ly8vPcp88eQIAR/9tHzidzj89Hs+Q0+n8ZMeOHRlYxHNgxhhsNhvcbjfi8fiJRCLxpSzL9WY/x3EoFUSETCZTn8lkLkqS9D5jrD8YDP6Yz+fBGLMG2+12AMDjx48/ffr0aX+5wGJ5mqZVzc/PX3U6nYf37dv3jsPhABGBiAAAPBGBMQZBEOD1ejE1NfXN5ORkvylULtRqEtPT0+fu3bv3W2VlJXieh67rMAwDQjQaBQA4HA6Mjo5emp2dvbCdVZYDz2azQVmWa3t6en4JBALw+XwQOjo6UFNTgwcPHhy+cePGdy8DatpZ6Nji4uKrHMclGGNTDx8+hBAKhZBKpTAyMjKpaZrjZUDr6uogy/IW+PT09FHG2Bf5fF7jRVFEPB4fVBSl8mVAo9Eo5ubmMDw8vGX1AOyGYVyKRCLAkSNHIEnSAgDiOO6FGgACQC0tLaTrOplx5coVstlsm/PywWAQOHXq1FHzpZVgOeDW1tbnoGYMDAw80zD1mpqaehAOhz+3EjcTS8EB0MGDB4kxtgV6+/Ztqq+vf248AKqurh5GbW3tqNVq29raaGhoqCi80F5FUbZAb926ZTnO4/H8gcbGxtVinfv376e1tTUiIhofH98iUsremzdvWjoFgHw+XxqSJG1sFuzs7CwpBoBisVhRe0tBTX2bzZaBJEnaZvCxY8eoWIyNjREAqqurI8Mwyra3KNjv9y8Ws7qlpcUSnkwmixZSOV8BAPJ6vWmIojhiVc2dnZ1F93Bz3L17l3iep3LPAlEUp9DU1PRVqf2IRqMl4ePj4yQIQtlQAOT3+3/FyZMnT5eqQAAUiUQon89b7vl2oACou7v7XYRCIQBY+K+C2HwcbhdaCD5w4ICA8+fPo729/WI5RRGNRomIKB6PbxtqasRise8HBwfBy7IMr9d7CcC6eZNYxf3799Ha2or29nZs9942td1u94epVArC3r17sWvXLnK5XI8SicSbVoLmvZpMJqGq6gtBjx8/fiESiYyl02nYurq6IAgCDh069DPP899OTEy8R0SWwtu9s01oOBy+3tfXd5kxho2NDdj8fj8YY/D5fOjt7e2bmZmpWllZOV0Kvl3onj177pw9e7Z7bm4Oq6ur4HkevKZp0HUd6+vrWFlZQSwWOxMOh68WDvw/ULfb/VMoFHpd0zTkcjkIggCO48AXWqiqKkRRRHNzc29VVdU5SZJWzH/hcidRkJtra2sbaG5ufluWZeRyOfA8/6xW+MJBPM9D0zSsra1h586dP7zyT1wWRfEvjuOweRKFz2aTJEn2+XxfOxyOxurq6s8AQNf1Ldtms5q5qqpwuVzLNTU1FxRF+Zjn+TMNDQ1vGIbRNTs7i6WlJYiiCLvdniOipMvlesQYu05E1/x+/7qiKFBVFYZhFK2VvwcADLdjH0wVaB4AAAAASUVORK5CYII=';
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public registerService: RegisterServiceProvider,
         public alertCtrl: AlertController, public profileService: ProfileServiceProvider, public loadingCtrl: LoadingController,
@@ -99,18 +100,47 @@ export class ProfilePage {
     }
 
     selectPhoto(): void {
-            this.camera.getPicture({
+           /*  this.camera.getPicture({
                 sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
                 destinationType: this.camera.DestinationType.FILE_URI,
                 quality: 100,
                 encodingType: this.camera.EncodingType.PNG,
             }).then(imageData => {
                 this.myPhoto = imageData;
-                //this.uploadPhoto(imageData);
+                this.uploadPhoto(imageData);
             }, error => {
                 // this.error = JSON.stringify(error);
                 this.toastShow(error);
-            });
+            }); */
+                this.uploadPhoto(this.testPhoto);
+    }
+
+    uploadPhoto(img) {
+        let loader = this.loadingCtrl.create({
+            content: "Uploading..."
+        });
+        loader.present();
+        const fileTransfer: FileTransferObject = this.transfer.create();
+
+        let options: FileUploadOptions = {
+            fileKey: 'ionicfile',
+            fileName: 'ionicfile',
+            chunkedMode: false,
+            mimeType: "image/jpeg",
+            headers: {}
+        }
+
+        fileTransfer.upload(img, 'http://www.mymobile.asia/app/public/api/v1/profile/uploadImage', options)
+            .then((data) => {
+                console.log(data+" Uploaded Successfully");
+                this.imageFileName = data;//"http://192.168.0.7:8080/static/images/ionicfile.jpg"
+                loader.dismiss();
+                this.toastShow("Image uploaded successfully");
+        }, (err) => {
+            console.log(err);
+            loader.dismiss();
+            this.toastShow(err);
+        });
     }
 
 /*     getImage() {
