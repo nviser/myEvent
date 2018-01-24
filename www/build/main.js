@@ -1200,7 +1200,7 @@ var SignUpPage = (function () {
     };
     SignUpPage.prototype.setupOldEventId = function () {
         var _this = this;
-        this.storage.get(__WEBPACK_IMPORTED_MODULE_3__config_app__["m" /* STORAGE_OLD_EVENT_ID */]).then(function (val) {
+        this.storage.get(__WEBPACK_IMPORTED_MODULE_3__config_app__["n" /* STORAGE_OLD_EVENT_ID */]).then(function (val) {
             _this.oldEventId = val;
             _this.form.old_event_id = val;
         });
@@ -1227,7 +1227,7 @@ var SignUpPage = (function () {
         this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["k" /* STORAGE_APP_USER */], user);
         this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["g" /* STORAGE_APP_HAS_LOGIN */], true);
         this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["h" /* STORAGE_APP_HAS_REDEEM */], false); // reset
-        this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["m" /* STORAGE_OLD_EVENT_ID */], user.event_id);
+        this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["n" /* STORAGE_OLD_EVENT_ID */], user.event_id);
         this.apiServiceProvider.apiToken = user.api_token;
         // go dashboard
         this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__dashboard_dashboard__["a" /* DashboardPage */]);
@@ -1559,16 +1559,16 @@ SignUpPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return STORAGE_APP_LANGUAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return STORAGE_APP_HAS_LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return STORAGE_APP_HAS_REDEEM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return STORAGE_OLD_EVENT_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return STORAGE_OLD_EVENT_ID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return STORAGE_APP_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return STORAGE_APP_USER_PHOTO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return STORAGE_ANDROID_APP_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return STORAGE_WINDOWS_APP_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return STORAGE_IOS_APP_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return STORAGE_WINDOWS_APP_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return STORAGE_IOS_APP_ID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return STORAGE_APP_DYNAMIC_TEXT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return STORAGE_APP_PRIVACY_POLICY; });
-//export const API_ENDPOINT = "http://35.224.236.132/event/public/api/v1";
-//export const API_ENDPOINT = "http://35.224.236.132/event/public/api/v1";
-var API_ENDPOINT = "http://www.mymobile.asia/app/public/api/v1";
+var API_ENDPOINT = "http://35.224.236.132/event/public/api/v1";
+//export const API_ENDPOINT = "http://www.mymobile.asia/app/public/api/v1";
 //export const API_ENDPOINT = "http://192.168.88.122/system/qrsystem/public/index.php/api/v1";
 // Storage Key
 var STORAGE_APP_BACKGROUND = "storage_app_background";
@@ -1579,6 +1579,7 @@ var STORAGE_APP_HAS_LOGIN = "storage_app_has_login";
 var STORAGE_APP_HAS_REDEEM = "storage_app_has_redeem";
 var STORAGE_OLD_EVENT_ID = "storage_old_event_id";
 var STORAGE_APP_USER = "storage_app_user";
+var STORAGE_APP_USER_PHOTO = "storage_app_user_photo";
 var STORAGE_ANDROID_APP_ID = 'io.ionic.event';
 var STORAGE_WINDOWS_APP_ID = 'io.ionic.event';
 var STORAGE_IOS_APP_ID = '12345678';
@@ -1927,7 +1928,15 @@ var ProfilePage = (function () {
         this.testPhoto = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAUNSURBVHjarJZdSBxXGIbfmdmZXbM/cZOssmHjH3HLuoRY1nVtMSokF4n5IbkoaS1IetFKITepYqFQcpO7tjRtIaWlvagpvRFMf8BALowhQpoEtGDiBiWWsFlc0erozu64szPn60U7YaM72zXNB+di5nznfc55zzfnDNff3w8AsNvtWFpaQiKRAGMM8/Pz2L17NyRJwvLyMhwOxwlZljvS6XTQ6XS+trCwUGEYBgKBgKFp2u8cx8243e4Jj8dzTVEU6LoOu92OhoYGZLNZNDY2IhAIQFVVAIANRYKIUFFRAUEQ+FQq9VEymXwrm802mf3Ly8vPcp88eQIAR/9tHzidzj89Hs+Q0+n8ZMeOHRlYxHNgxhhsNhvcbjfi8fiJRCLxpSzL9WY/x3EoFUSETCZTn8lkLkqS9D5jrD8YDP6Yz+fBGLMG2+12AMDjx48/ffr0aX+5wGJ5mqZVzc/PX3U6nYf37dv3jsPhABGBiAAAPBGBMQZBEOD1ejE1NfXN5ORkvylULtRqEtPT0+fu3bv3W2VlJXieh67rMAwDQjQaBQA4HA6Mjo5emp2dvbCdVZYDz2azQVmWa3t6en4JBALw+XwQOjo6UFNTgwcPHhy+cePGdy8DatpZ6Nji4uKrHMclGGNTDx8+hBAKhZBKpTAyMjKpaZrjZUDr6uogy/IW+PT09FHG2Bf5fF7jRVFEPB4fVBSl8mVAo9Eo5ubmMDw8vGX1AOyGYVyKRCLAkSNHIEnSAgDiOO6FGgACQC0tLaTrOplx5coVstlsm/PywWAQOHXq1FHzpZVgOeDW1tbnoGYMDAw80zD1mpqaehAOhz+3EjcTS8EB0MGDB4kxtgV6+/Ztqq+vf248AKqurh5GbW3tqNVq29raaGhoqCi80F5FUbZAb926ZTnO4/H8gcbGxtVinfv376e1tTUiIhofH98iUsremzdvWjoFgHw+XxqSJG1sFuzs7CwpBoBisVhRe0tBTX2bzZaBJEnaZvCxY8eoWIyNjREAqqurI8Mwyra3KNjv9y8Ws7qlpcUSnkwmixZSOV8BAPJ6vWmIojhiVc2dnZ1F93Bz3L17l3iep3LPAlEUp9DU1PRVqf2IRqMl4ePj4yQIQtlQAOT3+3/FyZMnT5eqQAAUiUQon89b7vl2oACou7v7XYRCIQBY+K+C2HwcbhdaCD5w4ICA8+fPo729/WI5RRGNRomIKB6PbxtqasRise8HBwfBy7IMr9d7CcC6eZNYxf3799Ha2or29nZs9942td1u94epVArC3r17sWvXLnK5XI8SicSbVoLmvZpMJqGq6gtBjx8/fiESiYyl02nYurq6IAgCDh069DPP899OTEy8R0SWwtu9s01oOBy+3tfXd5kxho2NDdj8fj8YY/D5fOjt7e2bmZmpWllZOV0Kvl3onj177pw9e7Z7bm4Oq6ur4HkevKZp0HUd6+vrWFlZQSwWOxMOh68WDvw/ULfb/VMoFHpd0zTkcjkIggCO48AXWqiqKkRRRHNzc29VVdU5SZJWzH/hcidRkJtra2sbaG5ufluWZeRyOfA8/6xW+MJBPM9D0zSsra1h586dP7zyT1wWRfEvjuOweRKFz2aTJEn2+XxfOxyOxurq6s8AQNf1Ldtms5q5qqpwuVzLNTU1FxRF+Zjn+TMNDQ1vGIbRNTs7i6WlJYiiCLvdniOipMvlesQYu05E1/x+/7qiKFBVFYZhFK2VvwcADLdjH0wVaB4AAAAASUVORK5CYII=';
         this.form = {};
         this.setupExtraFields();
+        this.getUserLogo();
     }
+    ProfilePage.prototype.getUserLogo = function () {
+        var _this = this;
+        // set default image
+        this.storage.get(__WEBPACK_IMPORTED_MODULE_2__config_app__["l" /* STORAGE_APP_USER_PHOTO */]).then(function (val) {
+            _this.myPhoto = val;
+        });
+    };
     ProfilePage.prototype.toastShow = function (msg) {
         var toast = this.toastCtrl.create({
             message: msg,
@@ -1971,26 +1980,29 @@ var ProfilePage = (function () {
         };
         this.camera.getPicture(options).then(function (imageData) {
             _this.myPhoto = imageData;
-            // this.uploadPhoto(imageData);
+            //this.uploadPhoto(this.myPhoto);
+            _this.storage.set(__WEBPACK_IMPORTED_MODULE_2__config_app__["l" /* STORAGE_APP_USER_PHOTO */], _this.myPhoto);
         }, function (error) {
-            _this.toastShow(error);
             // this.error = JSON.stringify(error);
+            _this.toastShow(JSON.stringify(error));
         });
     };
     ProfilePage.prototype.selectPhoto = function () {
-        /*  this.camera.getPicture({
-             sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-             destinationType: this.camera.DestinationType.FILE_URI,
-             quality: 100,
-             encodingType: this.camera.EncodingType.PNG,
-         }).then(imageData => {
-             this.myPhoto = imageData;
-             this.uploadPhoto(imageData);
-         }, error => {
-             // this.error = JSON.stringify(error);
-             this.toastShow(error);
-         }); */
-        this.uploadPhoto(this.testPhoto);
+        var _this = this;
+        this.camera.getPicture({
+            sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+            destinationType: this.camera.DestinationType.FILE_URI,
+            quality: 100,
+            encodingType: this.camera.EncodingType.PNG,
+        }).then(function (imageData) {
+            _this.myPhoto = imageData;
+            //this.uploadPhoto(this.myPhoto);
+            _this.storage.set(__WEBPACK_IMPORTED_MODULE_2__config_app__["l" /* STORAGE_APP_USER_PHOTO */], _this.myPhoto);
+        }, function (error) {
+            // this.error = JSON.stringify(error);
+            _this.toastShow(JSON.stringify(error));
+        });
+        //this.uploadPhoto(this.testPhoto);
     };
     ProfilePage.prototype.uploadPhoto = function (img) {
         var _this = this;
@@ -2006,60 +2018,18 @@ var ProfilePage = (function () {
             mimeType: "image/jpeg",
             headers: {}
         };
-        fileTransfer.upload(img, 'http://www.mymobile.asia/app/public/api/v1/profile/uploadImage', options)
+        fileTransfer.upload(img, __WEBPACK_IMPORTED_MODULE_2__config_app__["a" /* API_ENDPOINT */] + '/profile/uploadImage', options)
             .then(function (data) {
             console.log(data + " Uploaded Successfully");
-            _this.imageFileName = data; //"http://192.168.0.7:8080/static/images/ionicfile.jpg"
+            //this.imageFileName = data;//"http://192.168.0.7:8080/static/images/ionicfile.jpg"
             loader.dismiss();
             _this.toastShow("Image uploaded successfully");
         }, function (err) {
             console.log(err);
             loader.dismiss();
-            _this.toastShow(err);
+            _this.toastShow(JSON.stringify(err));
         });
     };
-    /*     getImage() {
-            const options: CameraOptions = {
-                quality: 100,
-                destinationType: this.camera.DestinationType.FILE_URI,
-                sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-            }
-    
-            this.camera.getPicture(options).then((imageData) => {
-                this.imageURI = imageData;
-            }, (err) => {
-                console.log(err);
-                this.toastShow(err);
-            });
-        }
-    
-        uploadFile() {
-            let loader = this.loadingCtrl.create({
-                content: "Uploading..."
-            });
-            loader.present();
-            const fileTransfer: FileTransferObject = this.transfer.create();
-    
-            let options: FileUploadOptions = {
-                fileKey: 'ionicfile',
-                fileName: 'ionicfile',
-                chunkedMode: false,
-                mimeType: "image/jpeg",
-                headers: {}
-            }
-    
-            fileTransfer.upload(this.imageURI, 'http://192.168.0.7:8080/api/uploadImage', options)
-                .then((data) => {
-                console.log(data+" Uploaded Successfully");
-                this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"
-                loader.dismiss();
-                this.toastShow("Image uploaded successfully");
-            }, (err) => {
-                console.log(err);
-                loader.dismiss();
-                this.toastShow(err);
-            });
-        } */
     ProfilePage.prototype.createCode = function () {
         if (this.form.age !== undefined
             && this.form.age !== ''
@@ -2161,18 +2131,6 @@ var ProfilePage = (function () {
             this.showAlertMessage('Gender is required');
             return false;
         }
-        else if (this.form.age == undefined || this.form.age == '') {
-            this.showAlertMessage('Age is required');
-            return false;
-        }
-        else if (this.form.key_in_company_name == undefined || this.form.key_in_company_name == '') {
-            this.showAlertMessage('Company name is required');
-            return false;
-        }
-        else if (this.form.designation == undefined || this.form.designation == '') {
-            this.showAlertMessage('Designation is required');
-            return false;
-        }
         else if (this.form.website == undefined || this.form.website == '') {
             this.showAlertMessage('Website is required');
             return false;
@@ -2236,7 +2194,7 @@ var ProfilePage = (function () {
 }());
 ProfilePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-profile',template:/*ion-inline-start:"C:\OpenServer\domains\MyEvent\src\pages\profile\profile.html"*/'<!--\n  Generated template for the DashboardPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n<ion-header class="header">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{"profile"|translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<app-content margin-top>\n    <ion-scroll class="register-form" scrollY="true">\n        <!-- <ion-content padding>\n           \n        </ion-content> -->\n        <ion-list>\n            <!-- <ion-item style="text-align: center;" *ngIf="profile != undefined">\n                <ion-label >{{"profile_id"|translate}}: {{profile.draw_id}}</ion-label>\n            </ion-item>\n\n             <ion-item>\n                <p>{{imageURI}}</p>\n                <button ion-button color="secondary" (click)="getImage()">Get Image</button>\n            </ion-item>\n            <ion-item>\n                <h4>Image Preview</h4>\n                <img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />\n            </ion-item>\n            <ion-item>\n                <button ion-button (click)="uploadFile()">Upload</button>\n            </ion-item> -->\n            <!-- <ion-item>\n            <ion-row>\n                <ion-col col-6>\n                <button ion-button color="danger" type="button" full round large (click)="takePhoto()">\n                    <ion-icon name="camera"></ion-icon>\n                </button>\n                </ion-col>\n                <ion-col col-6>\n                <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">\n                    <ion-icon name="image"></ion-icon>\n                </button>\n                </ion-col>\n            </ion-row>\n            </ion-item>\n            <ion-item *ngIf="error">\n                <strong>{{error}}</strong>\n            </ion-item> -->\n            <ion-item>\n                <div class="img-wrap">\n                    <img  (click)="addPhoto()" *ngIf="myPhoto" class="img-responsive tm-user-photo" src="assets/images/sarah.jpeg" [src]="myPhoto"/>\n                    <img  (click)="addPhoto()" *ngIf="!myPhoto" class="img-responsive tm-user-photo" src="assets/images/noimg.png"/>\n                </div>\n            </ion-item>\n\n            <ion-item class="form-input">\n                <ion-label>{{"name"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.name" readonly></ion-input>\n            </ion-item>\n            <!-- <ion-item class="form-input">\n                <ion-label>{{"passport"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.identity_passport"></ion-input>\n            </ion-item> -->\n            <ion-item class="form-input">\n                <ion-label>{{"email"|translate}}</ion-label>\n                <ion-input readonly="true" type="email" [(ngModel)]="form.email" readonly></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"phone"|translate}}</ion-label>\n                <ion-input type="tel" [(ngModel)]="form.mobile_number" readonly></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"gender"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.gender" readonly></ion-input> <!-- (click)="showGenderSelection()" -->\n            </ion-item>\n            <ion-item *ngIf="extraFields != undefined && extraFields.length > 0">\n                <ion-label class="subtitle">{{"others"|translate}}</ion-label>\n            </ion-item>\n            <ion-item class="form-input" *ngFor="let field of extraFields">\n                <ion-label>{{field.name}}</ion-label>\n                <ion-input (input)="extraFieldInputChange($event.target.value, field.id)" value="{{ field.value ? field.value : \'\' }}"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Age</ion-label>\n                <ion-input type="tel" [(ngModel)]="form.age"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Company</ion-label>\n                <ion-input [(ngModel)]="form.key_in_company_name"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Designation</ion-label>\n                <ion-input [(ngModel)]="form.designation"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Website</ion-label>\n                <ion-input [(ngModel)]="form.website"></ion-input>\n            </ion-item>\n            <ion-item>\n                <button id="submit-button" (click)="onSubmitForm()" ion-button outline>{{"update"|translate}}</button>\n            </ion-item>\n            <!-- <ion-item>\n                <button (click)="createCode()" ion-button outline>{{"create"|translate}}</button>\n            </ion-item> -->\n        </ion-list>\n        <!-- <div id="qr_code"></div> -->\n        <ion-card *ngIf="createdCode">\n            <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>\n            <!-- <ion-card-content>\n                <p>Value: {{ createdCode }}</p>\n            </ion-card-content> -->\n        </ion-card>\n    </ion-scroll>\n\n</app-content>\n'/*ion-inline-end:"C:\OpenServer\domains\MyEvent\src\pages\profile\profile.html"*/,
+        selector: 'page-profile',template:/*ion-inline-start:"C:\OpenServer\domains\MyEvent\src\pages\profile\profile.html"*/'<!--\n  Generated template for the DashboardPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n<ion-header class="header">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{"profile"|translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<app-content margin-top>\n    <ion-scroll class="register-form" scrollY="true">\n        <!-- <ion-content padding>\n           \n        </ion-content> -->\n        <ion-list>\n            <!-- <ion-item style="text-align: center;" *ngIf="profile != undefined">\n                <ion-label >{{"profile_id"|translate}}: {{profile.draw_id}}</ion-label>\n            </ion-item>\n\n             <ion-item>\n                <p>{{imageURI}}</p>\n                <button ion-button color="secondary" (click)="getImage()">Get Image</button>\n            </ion-item>\n            <ion-item>\n                <h4>Image Preview</h4>\n                <img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />\n            </ion-item>\n            <ion-item>\n                <button ion-button (click)="uploadFile()">Upload</button>\n            </ion-item> -->\n            <!-- <ion-item>\n            <ion-row>\n                <ion-col col-6>\n                <button ion-button color="danger" type="button" full round large (click)="takePhoto()">\n                    <ion-icon name="camera"></ion-icon>\n                </button>\n                </ion-col>\n                <ion-col col-6>\n                <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">\n                    <ion-icon name="image"></ion-icon>\n                </button>\n                </ion-col>\n            </ion-row>\n            </ion-item>\n            <ion-item *ngIf="error">\n                <strong>{{error}}</strong>\n            </ion-item> -->\n            <ion-item>\n                <div class="img-wrap">\n                    <img  (click)="addPhoto()" *ngIf="myPhoto" class="img-responsive tm-user-photo" [src]="myPhoto"/>\n                    <img  (click)="addPhoto()" *ngIf="!myPhoto" class="img-responsive tm-user-photo" src="assets/images/noimg.png"/>\n                </div>\n            </ion-item>\n\n            <ion-item class="form-input">\n                <ion-label>{{"name"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.name" readonly></ion-input>\n            </ion-item>\n            <!-- <ion-item class="form-input">\n                <ion-label>{{"passport"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.identity_passport"></ion-input>\n            </ion-item> -->\n            <ion-item class="form-input">\n                <ion-label>{{"email"|translate}}</ion-label>\n                <ion-input readonly="true" type="email" [(ngModel)]="form.email" readonly></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"phone"|translate}}</ion-label>\n                <ion-input type="tel" [(ngModel)]="form.mobile_number" readonly></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>{{"gender"|translate}}</ion-label>\n                <ion-input [(ngModel)]="form.gender" readonly></ion-input> <!-- (click)="showGenderSelection()" -->\n            </ion-item>\n            <ion-item *ngIf="extraFields != undefined && extraFields.length > 0">\n                <ion-label class="subtitle">{{"others"|translate}}</ion-label>\n            </ion-item>\n            <ion-item class="form-input" *ngFor="let field of extraFields">\n                <ion-label>{{field.name}}</ion-label>\n                <ion-input (input)="extraFieldInputChange($event.target.value, field.id)" value="{{ field.value ? field.value : \'\' }}"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Age</ion-label>\n                <ion-input type="tel" [(ngModel)]="form.age"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Company</ion-label>\n                <ion-input [(ngModel)]="form.key_in_company_name"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Designation</ion-label>\n                <ion-input [(ngModel)]="form.designation"></ion-input>\n            </ion-item>\n            <ion-item class="form-input">\n                <ion-label>Website</ion-label>\n                <ion-input [(ngModel)]="form.website"></ion-input>\n            </ion-item>\n            <ion-item>\n                <button id="submit-button" (click)="onSubmitForm()" ion-button outline>{{"update"|translate}}</button>\n            </ion-item>\n            <!-- <ion-item>\n                <button (click)="createCode()" ion-button outline>{{"create"|translate}}</button>\n            </ion-item> -->\n        </ion-list>\n        <!-- <div id="qr_code"></div> -->\n        <ion-card *ngIf="createdCode">\n            <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>\n            <!-- <ion-card-content>\n                <p>Value: {{ createdCode }}</p>\n            </ion-card-content> -->\n        </ion-card>\n    </ion-scroll>\n\n</app-content>\n'/*ion-inline-end:"C:\OpenServer\domains\MyEvent\src\pages\profile\profile.html"*/,
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_register_service_register_service__["a" /* RegisterServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_register_service_register_service__["a" /* RegisterServiceProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__providers_profile_service_profile_service__["a" /* ProfileServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_profile_service_profile_service__["a" /* ProfileServiceProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_transfer__["a" /* FileTransfer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_transfer__["a" /* FileTransfer */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__["a" /* Camera */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__["a" /* Camera */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* ToastController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]) === "function" && _l || Object])
 ], ProfilePage);
@@ -3233,9 +3191,9 @@ var MyApp = (function () {
                     feedbackPromptTitle: 'Mind giving us some feedback?',
                 },
                 storeAppURL: {
-                    ios: __WEBPACK_IMPORTED_MODULE_5__config_app__["l" /* STORAGE_IOS_APP_ID */],
+                    ios: __WEBPACK_IMPORTED_MODULE_5__config_app__["m" /* STORAGE_IOS_APP_ID */],
                     android: 'market://details?id=' + __WEBPACK_IMPORTED_MODULE_5__config_app__["b" /* STORAGE_ANDROID_APP_ID */],
-                    windows: 'ms-windows-store://review/?ProductId=' + __WEBPACK_IMPORTED_MODULE_5__config_app__["n" /* STORAGE_WINDOWS_APP_ID */]
+                    windows: 'ms-windows-store://review/?ProductId=' + __WEBPACK_IMPORTED_MODULE_5__config_app__["o" /* STORAGE_WINDOWS_APP_ID */]
                 },
                 callbacks: {
                     handleNegativeFeedback: function () {
@@ -3454,7 +3412,7 @@ var RegisterPage = (function () {
     };
     RegisterPage.prototype.setupOldEventId = function () {
         var _this = this;
-        this.storage.get(__WEBPACK_IMPORTED_MODULE_3__config_app__["m" /* STORAGE_OLD_EVENT_ID */]).then(function (val) {
+        this.storage.get(__WEBPACK_IMPORTED_MODULE_3__config_app__["n" /* STORAGE_OLD_EVENT_ID */]).then(function (val) {
             _this.oldEventId = val;
             _this.form.old_event_id = val;
         });
@@ -3481,7 +3439,7 @@ var RegisterPage = (function () {
         this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["k" /* STORAGE_APP_USER */], user);
         this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["g" /* STORAGE_APP_HAS_LOGIN */], true);
         this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["h" /* STORAGE_APP_HAS_REDEEM */], false); // reset
-        this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["m" /* STORAGE_OLD_EVENT_ID */], user.event_id);
+        this.storage.set(__WEBPACK_IMPORTED_MODULE_3__config_app__["n" /* STORAGE_OLD_EVENT_ID */], user.event_id);
         this.apiServiceProvider.apiToken = user.api_token;
         // go dashboard
         this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__dashboard_dashboard__["a" /* DashboardPage */]);

@@ -45,6 +45,14 @@ export class ProfilePage {
         this.form = {};
 
         this.setupExtraFields();
+        this.getUserLogo();
+    }
+
+    getUserLogo() {
+        // set default image
+        this.storage.get(App.STORAGE_APP_USER_PHOTO).then((val) => {
+            this.myPhoto = val;
+        });
     }
 
     toastShow(msg) {
@@ -91,28 +99,30 @@ export class ProfilePage {
                 encodingType: this.camera.EncodingType.PNG,
             }
             this.camera.getPicture(options).then(imageData => {
-                this.myPhoto = imageData;
-                // this.uploadPhoto(imageData);
+                this.myPhoto = /* 'data:image/jpeg;base64,' +  */imageData;
+                //this.uploadPhoto(this.myPhoto);
+                this.storage.set(App.STORAGE_APP_USER_PHOTO, this.myPhoto);
             }, error => {
-                this.toastShow(error);
                 // this.error = JSON.stringify(error);
+                this.toastShow(JSON.stringify(error));
             });
     }
 
     selectPhoto(): void {
-           /*  this.camera.getPicture({
+             this.camera.getPicture({
                 sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
                 destinationType: this.camera.DestinationType.FILE_URI,
                 quality: 100,
                 encodingType: this.camera.EncodingType.PNG,
             }).then(imageData => {
-                this.myPhoto = imageData;
-                this.uploadPhoto(imageData);
+                this.myPhoto = /* 'data:image/jpeg;base64,' +  */imageData;
+                //this.uploadPhoto(this.myPhoto);
+                this.storage.set(App.STORAGE_APP_USER_PHOTO, this.myPhoto);
             }, error => {
                 // this.error = JSON.stringify(error);
-                this.toastShow(error);
-            }); */
-                this.uploadPhoto(this.testPhoto);
+                this.toastShow(JSON.stringify(error));
+            }); 
+                //this.uploadPhoto(this.testPhoto);
     }
 
     uploadPhoto(img) {
@@ -130,61 +140,18 @@ export class ProfilePage {
             headers: {}
         }
 
-        fileTransfer.upload(img, 'http://www.mymobile.asia/app/public/api/v1/profile/uploadImage', options)
+        fileTransfer.upload(img, App.API_ENDPOINT + '/profile/uploadImage', options)
             .then((data) => {
                 console.log(data+" Uploaded Successfully");
-                this.imageFileName = data;//"http://192.168.0.7:8080/static/images/ionicfile.jpg"
+                //this.imageFileName = data;//"http://192.168.0.7:8080/static/images/ionicfile.jpg"
                 loader.dismiss();
                 this.toastShow("Image uploaded successfully");
         }, (err) => {
             console.log(err);
             loader.dismiss();
-            this.toastShow(err);
+            this.toastShow(JSON.stringify(err));
         });
     }
-
-/*     getImage() {
-        const options: CameraOptions = {
-            quality: 100,
-            destinationType: this.camera.DestinationType.FILE_URI,
-            sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-        }
-
-        this.camera.getPicture(options).then((imageData) => {
-            this.imageURI = imageData;
-        }, (err) => {
-            console.log(err);
-            this.toastShow(err);
-        });
-    }
-
-    uploadFile() {
-        let loader = this.loadingCtrl.create({
-            content: "Uploading..."
-        });
-        loader.present();
-        const fileTransfer: FileTransferObject = this.transfer.create();
-
-        let options: FileUploadOptions = {
-            fileKey: 'ionicfile',
-            fileName: 'ionicfile',
-            chunkedMode: false,
-            mimeType: "image/jpeg",
-            headers: {}
-        }
-
-        fileTransfer.upload(this.imageURI, 'http://192.168.0.7:8080/api/uploadImage', options)
-            .then((data) => {
-            console.log(data+" Uploaded Successfully");
-            this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"
-            loader.dismiss();
-            this.toastShow("Image uploaded successfully");
-        }, (err) => {
-            console.log(err);
-            loader.dismiss();
-            this.toastShow(err);
-        });
-    } */
 
     createCode() {
         if( this.form.age !== undefined 
@@ -305,7 +272,7 @@ export class ProfilePage {
             this.showAlertMessage('Gender is required');
             return false;
         }
-        else if (this.form.age == undefined || this.form.age == '') {
+        /* else if (this.form.age == undefined || this.form.age == '') {
             this.showAlertMessage('Age is required');
             return false;
         }
@@ -316,7 +283,7 @@ export class ProfilePage {
         else if (this.form.designation == undefined || this.form.designation == '') {
             this.showAlertMessage('Designation is required');
             return false;
-        }
+        } */
         else if (this.form.website == undefined || this.form.website == '') {
             this.showAlertMessage('Website is required');
             return false;
